@@ -101,7 +101,7 @@ function getContent(userData) {
 async function sendMail(user, content, userData) {
 	mailOptions.html = `<b>${content}</b>`;
   mailOptions.to = user.email;
-	transporter.sendMail(mailOptions, function(error, info) {
+	transporter.sendMail(mailOptions, async function(error, info) {
 		if (error) {
 			console.log("send error info:" + error);
 			//发送失败 则过三秒重新发送
