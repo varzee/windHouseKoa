@@ -1,0 +1,24 @@
+{
+  "name": "wind-house-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "varzee",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "cheerio": "^1.0.0-rc.3",
+    "koa": "^2.10.0",
+    "koa-bodyparser": "3",
+    "koa-cors": "^0.0.16",
+    "koa-router": "^7.4.0",
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.6",
+    "nodemailer": "^6.3.1",
+    "superagent": "^5.1.0",
+    "superagent-charset": "^1.2.0"
+  }
+}
