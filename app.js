@@ -18,20 +18,38 @@ app.use(cors());
 
 router
 .get('/getInfo', async (ctx,next) => {
-	let res = await DB.find();
-	ctx.body = {
-		success: true,
-		data: res,
-		mesasge: 'success'
+	try {
+		let res = await DB.find();
+		ctx.body = {
+			errno: 0,
+			data: res,
+			mesasge: 'success'
+		}
+	} catch(err) {
+		ctx.body = {
+			errno: 2001,
+			data: res,
+			mesasge: err.message
+		}
 	}
+	
 	await next();
 })
 .post('/subscribe', async (ctx,next) => {
-	const {name, phone, email, sub_area} = ctx.request.body
-	await DB.create({name, phone, email, sub_area, last_send_area: []});
-	ctx.body = {
-		success: true,
-		mesasge: 'success'
+	try {
+		const {name, phone, email, sub_area} = ctx.request.body
+		await DB.create({name, phone, email, sub_area, last_send_area: []});
+		ctx.body = {
+			errno: 0,
+			data: res,
+			mesasge: 'success'
+		}
+	} catch(err) {
+		ctx.body = {
+			errno: 2001,
+			data: res,
+			mesasge: err.message
+		}
 	}
 	await next()
 })
