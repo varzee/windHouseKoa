@@ -63,18 +63,20 @@ function getAllData() {
 			}
 		});
 }
-// 获取当天的房源信息
-function getTodayAreaInfo() {
+// 过滤出当天的房源信息
+function getTodayAreaInfo(data) {
   const day = new Date().getDate();
   const month = new Date().getMonth() + 1;
-  return allData.filter(v => v.date === `${month > 9 ? month : '0'+month}-${day > 9 ? day : '0'+day}`)
+  return data.filter(v => v.date === `${month > 9 ? month : '0'+month}-${day > 9 ? day : '0'+day}`)
 }
 // 获取用户订阅区域最新信息
 function getUserData(user) {
-  let todayData = getTodayAreaInfo()
+  let todayData = getTodayAreaInfo(allData)
+  // console.log(user.last_send_area)
   let userData = todayData.filter(v => {
     return isUserArea(user.sub_area, v.area) && isNewInfo(user.last_send_area, v.name)
   });
+  // console.log(userData)
   return userData;
 }
 
@@ -110,7 +112,8 @@ async function sendMail(user, content, userData) {
 			}, 3000);
     }
     const sendArea = userData.map(v => v.name);
-    const last_send_area = sendArea
+    const last_send_area = [...user.last_send_area, ...sendArea]
+    console.log(last_send_area)
     await DB.updateMany({phone: user.phone}, { last_send_area })
   })
 }
